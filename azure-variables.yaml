@@ -1,0 +1,18 @@
+variables:
+  - name: BASE_NAME
+    value: mikonmlops
+  - name: RESOURCE_GROUP
+    value: rpg-learn-neu-mikkok
+  - name: LOCATION_ID
+    value: northeurope
+  - name: SUBSCRIPTION_ID
+    value: d50ade7c-2587-4da8-9c63-fc828541722c
+    #AML Cluster compute config
+  - name: AML_COMPUTE_CLUSTER_CPU_SKU
+    value: train-cluster
+  - name: AML_CLUSTER_MIN_NODES
+    value: 0
+  - name: AML_CLUSTER_MAX_NODES
+    value: 4
+  - name: AML_CLUSTER_PRIORITY
+    value: lowpriority

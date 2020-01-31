@@ -7,8 +7,7 @@ variables:
     value: northeurope
   - name: SUBSCRIPTION_ID
     value: d50ade7c-2587-4da8-9c63-fc828541722c
-  - name: SERVICE_CONNECTION
-    value: AzureServiceConnection
+
     #AML Cluster compute config
   - name: AML_COMPUTE_CLUSTER_CPU_SKU
     value: train-cluster

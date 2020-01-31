@@ -4,20 +4,20 @@ trigger:
       - master
   paths:
     include:
-      - $(Build.SourcesDirectory)/arm-templates/*
+      - /arm-templates/*
 pr:
   branches:
     include:
       - master
   paths:
     include:
-      - $(Build.SourcesDirectory)/arm-templates/*
+      - /arm-templates/*
 
 pool:
   vmImage: "ubuntu-latest"
 
 variables:
-  - template: $(Build.SourcesDirectory)/azure-variables.yaml
+  - template: /azure-variables.yaml
 
 steps:
   - task: AzureResourceGroupDeployment@2

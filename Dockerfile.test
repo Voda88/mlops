@@ -2,4 +2,6 @@ FROM mcr.microsoft.com/mlops/python:latest
 
 WORKDIR /build
 
-COPY . /setup/
+COPY /data/* /data/
+COPY /scripts/* /scripts/
+COPY /pipelines/* /pipelines/

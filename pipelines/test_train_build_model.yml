@@ -7,22 +7,31 @@ trigger:
     include:
     - scripts/
 
-  variables:
-  - template: azure-variables.yml
+variables:
+- template: azure-variables.yml
 
-  pool:
-    vmImage: ubuntu-latest
+pool:
+  vmImage: ubuntu-latest
   
-  stages:
+stages:
 
-  - stage: 'Trigger_AML_Pipeline'
-    displayName: 'Train model'
-    jobs:
-    - job: 'Get_Pipeline_ID'
-      displayName: "Get Pipeline ID for execution"
-      timeoutInMinutes: 0
-      steps:
-      - task: AzureCLI@2
-        inputs:
-          azureSubscription: '$(AML_WORKSPACE_SERVICE_connection)'
+- stage: 'Trigger_AML_Pipeline'
+  displayName: 'Train model'
+  jobs:
+  - job: 'Get_Pipeline_ID'
+    displayName: "Get Pipeline ID for execution"
+    timeoutInMinutes: 0
+    steps:
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: '$(AML_WORKSPACE_SERVICE_connection)'
+        scriptLocation: inlineScript
+        workingDirectory: $(Build.SourcesDirectory)
+        inlineScript: |
+          docker build -f Dockerfile.test -t testing .
+          docker run testing python3 pipelines/pipeline.py
+            
+
+            
+
       

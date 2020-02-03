@@ -40,7 +40,7 @@ except ComputeTargetException:
 
 run_config = RunConfiguration(
     conda_dependencies= CondaDependencies(
-        conda_dependencies_file_path="./azure-variables.yml"
+        conda_dependencies_file_path="./conda_dependencies.yml"
     )
 )
 

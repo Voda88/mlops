@@ -25,7 +25,7 @@ stages:
     - task: AzureCLI@2
       inputs:
         azureSubscription: $(AML_WORKSPACE_SERVICE_CONNECTION)
-        scriptType: Bash
+        scriptType: bash
         scriptLocation: inlineScript
         workingDirectory: $(Build.SourcesDirectory)
         inlineScript: |

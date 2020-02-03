@@ -1,9 +1,5 @@
-FROM continuumio/miniconda3
+FROM mcr.microsoft.com/mlops/python:latest
 
 WORKDIR /build
 
-COPY environment.yaml .
-
-RUN conda env update -n base -f environment.yaml &&\
-    conda install -y pytest
-
+COPY . /setup/

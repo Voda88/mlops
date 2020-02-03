@@ -25,9 +25,9 @@ with open("azure-variables.yaml", "r") as f:
 )
 
 ws = Workspace(
-    subscription_id=variables["subscription_id"],
-    resource_group=variables["resource_group"],
-    workspace_name=variables["workspace_name"],   
+    subscription_id=variables["SUBSCRIPTION_ID"],
+    resource_group=variables["RESOURCE_GROUP"],
+    workspace_name=variables["BASE_NAME"]+"ws"   
 )
 
 # Usually, the  cluster already exists, so we just fetch
@@ -36,28 +36,29 @@ try:
     print('Found existing cluster, use it.')
 except ComputeTargetException:
     compute_config = AmlCompute.provisioning_configuration(vm_size = variables['AML_COMPUTE_CLUSTER_SIZE'], max_nodes = variables['AML_CLUSTER_MAX_NODES'])
+    cpu_cluster = ComputeTarget.create(ws, variables["AML_COMPUTE_CLUSTER_CPU_SKU"], compute_config)
 
 run_config = RunConfiguration(
-    conda_dependencies=CondaDependencies(
-        conda_dependencies_file_path="./environment.yaml"
+    conda_dependencies= CondaDependencies(
+        conda_dependencies_file_path="./azure-variables.yml"
     )
 )
 
 # Pipeline definition
-inputdata = Datastore.register_azure_blob_container(
-    workspace=ws,
-    datastore_name="data",
-    container_name="component-condition-model",
-    account_name="topsecretdata",
-    account_key=os.environ["ACCOUNT_KEY"],
-)
+dataset_name = variables["DATASET_NAME"]
+datastore = Datastore.get(ws, variables["DATASTORE_NAME"])
+data_path = [(datastore, variables["DATAFILE_PATH"])]
+dataset = Dataset.Tabular.from_delimited_files(path = data_path)
+dataset.register(workspace = ws,
+                name = dataset_name,
+                description = "dataset with training data",
+                create_new_version = True)
 
 train_model = PythonScriptStep(
-    script_name="./train.py",
-    name="fit-nlp-model",
-    inputs=[inputdata.as_download()],
-    runconfig=run_config,
-    compute_target=compute_target,
+    name = "Train Model",
+    script_name = variables["TRAIN_SCRIPT_PATH"],
+    compute_target = compute_target,
+    
 )
 
 pipeline = Pipeline(

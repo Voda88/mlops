@@ -132,6 +132,5 @@ dmypy.json
 .vscode/
 
 # Local copy of data
-data/
 outputs/
 azureml-models/

@@ -8,7 +8,7 @@ trigger:
     - scripts/
 
 variables:
-- template: /azure-variables.yml
+- template: /variables.yml
 
 pool:
   vmImage: ubuntu-latest

@@ -22,7 +22,7 @@ with open("azure-variables.yaml", "r") as f:
 #auth = ServicePrincipalAuthentication(
     #tenant_id=variables["tenant_id"],
     #service_principal_id=variables["service_principal_id"]
-)
+#)
 
 ws = Workspace(
     subscription_id=variables["SUBSCRIPTION_ID"],

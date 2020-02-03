@@ -10,10 +10,13 @@ variables:
   - name: AZURE_SERVICE_CONNECTION
     value: AzureServiceConnection
   - name: AML_WORKSPACE_SERVICE_CONNECTION
+    value: AMLWorkspaceServiceConnection
 
     #AML Cluster compute config
   - name: AML_COMPUTE_CLUSTER_CPU_SKU
     value: train-cluster
+  - name: AML_COMPUTE_CLUSTER_SIZE
+    value: STANDARD_D2_V2
   - name: AML_CLUSTER_MIN_NODES
     value: 0
   - name: AML_CLUSTER_MAX_NODES

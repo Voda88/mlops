@@ -23,4 +23,6 @@ trigger:
       timeoutInMinutes: 0
       steps:
       - task: AzureCLI@2
+        inputs:
+          azureSubscription: '$(AML_WORKSPACE_SERVICE_connection)'
       

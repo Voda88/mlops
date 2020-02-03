@@ -25,11 +25,12 @@ stages:
     - task: AzureCLI@2
       inputs:
         azureSubscription: $(AML_WORKSPACE_SERVICE_CONNECTION)
+        scriptType: Bash
         scriptLocation: inlineScript
         workingDirectory: $(Build.SourcesDirectory)
         inlineScript: |
           docker build -f Dockerfile.test -t testing .
-          docker run testing python3 pipelines/pipeline.py
+          docker run testing python3 pipelines/aml_train_build.py
             
 
             

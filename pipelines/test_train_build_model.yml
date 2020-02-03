@@ -8,7 +8,7 @@ trigger:
     - scripts/
 
 variables:
-- template: ${{Build.SourcesDirectory}}/azure-variables.yml
+- template: azure-variables.yml
 
 pool:
   vmImage: ubuntu-latest
@@ -24,7 +24,7 @@ stages:
     steps:
     - task: AzureCLI@2
       inputs:
-        azureSubscription: '$(AML_WORKSPACE_SERVICE_connection)'
+        azureSubscription: $(AML_WORKSPACE_SERVICE_CONNECTION)
         scriptLocation: inlineScript
         workingDirectory: $(Build.SourcesDirectory)
         inlineScript: |

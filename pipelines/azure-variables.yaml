@@ -34,7 +34,7 @@ variables:
 
     #Training
   - name: TRAIN_SCRIPT_PATH
-    values: scripts/train_model.py
+    value: scripts/train_model.py
 
     #Training conda dependencies
   - name: diabetes_training

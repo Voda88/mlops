@@ -22,7 +22,7 @@ variables:
 steps:
   - task: AzureResourceGroupDeployment@2
     inputs:
-      azureSubscription: "$(SERVICE_CONNECTION)"
+      azureSubscription: "$(AZURE_SERVICE_CONNECTION)"
       action: "Create Or Update Resource Group"
       resourceGroupName: "$(RESOURCE_GROUP)"
       templateLocation: "Linked artifact"

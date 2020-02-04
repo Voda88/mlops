@@ -16,7 +16,7 @@ from azureml.pipeline.core import Pipeline
 from azureml.pipeline.steps import PythonScriptStep
 
 # Load yaml and store it as a dictionary
-with open("/pipelines/variables.yml", "r") as f:
+with open("variables.yml", "r") as f:
     yaml_loaded = yaml.safe_load(f)['variables']
 
 variables = {}

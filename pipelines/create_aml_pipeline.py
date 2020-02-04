@@ -9,6 +9,7 @@ from azureml.core import (
     ComputeTarget,
 )
 
+from azureml.exceptions import ComputeTargetException
 from azureml.core.conda_dependencies import CondaDependencies
 from azureml.core.authentication import ServicePrincipalAuthentication
 from azureml.pipeline.core import Pipeline
@@ -28,8 +29,8 @@ for d in yaml_loaded:
     #service_principal_id=variables["service_principal_id"]
 #)
 
-ws = Workspace(
-    subscription_id=variables["SUBSCRIPTION_ID"],
+ws = Workspace.get(
+    subscription_id=variables["AML"],
     resource_group=variables["RESOURCE_GROUP"],
     workspace_name=variables["BASE_NAME"]+"ws"   
 )

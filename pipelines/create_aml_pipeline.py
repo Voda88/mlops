@@ -58,13 +58,13 @@ train_model = PythonScriptStep(
     name = "Train Model",
     script_name = variables["TRAIN_SCRIPT_PATH"],
     compute_target = compute_target,
-    
+    run_config = run_config
 )
 
 pipeline = Pipeline(
     workspace=ws,
     steps=[train_model],
-    description="Builds Keras model for detecting component defects",
+    description="Builds sci_kit_learn model for diabetes",
 )
 
 if __name__ == "__main__":

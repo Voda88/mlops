@@ -10,6 +10,7 @@ from azureml.core import (
 )
 
 from azureml.exceptions import ComputeTargetException
+from azureml.core.compute import AmlCompute
 from azureml.core.conda_dependencies import CondaDependencies
 from azureml.core.authentication import ServicePrincipalAuthentication
 from azureml.pipeline.core import Pipeline

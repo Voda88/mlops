@@ -27,6 +27,7 @@ stages:
       inputs:
         azureSubscription: $(AML_WORKSPACE_SERVICE_CONNECTION)
         scriptLocation: inlineScript
+        scriptType: bash
         workingDirectory: $(Build.SourcesDirectory)
         inlineScript: |
           python3 $(AML_PIPELINE_PATH)

@@ -15,7 +15,7 @@ from azureml.pipeline.core import Pipeline
 from azureml.pipeline.steps import PythonScriptStep
 
 with open("/pipelines/variables.yml", "r") as f:
-    conf = yaml.safe_load(f, Loader=yaml.FullLoader)
+    conf = yaml.safe_load_all(f)
     variables = conf["variables"]
 
 # Authenticate with AzureML

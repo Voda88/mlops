@@ -30,12 +30,19 @@ ws = Workspace(
     workspace_name=variables["BASE_NAME"]+"ws"   
 )
 
+
 # Usually, the  cluster already exists, so we just fetch
 try:
     compute_target = ComputeTarget(ws, variables["AML_COMPUTE_CLUSTER_CPU_SKU"])
     print('Found existing cluster, use it.')
 except ComputeTargetException:
-    compute_config = AmlCompute.provisioning_configuration(vm_size = variables['AML_COMPUTE_CLUSTER_SIZE'], max_nodes = variables['AML_CLUSTER_MAX_NODES'])
+    compute_config = Amlcompute.provisioning_configuration(
+    vm_size = variables['AML_COMPUTE_CLUSTER_SIZE'],
+    vm_priority = variables['AML_CLUSTER_PRIORITY'],
+    min_nodes = variables['AML_CLUSTER_MIN_NODES'],
+    max_nodes = variables['AML_CLUSTER_MAX_NODES'],
+    idle_seconds_before_scaledown = "300"
+    )
     cpu_cluster = ComputeTarget.create(ws, variables["AML_COMPUTE_CLUSTER_CPU_SKU"], compute_config)
 
 run_config = RunConfiguration(
@@ -58,7 +65,8 @@ train_model = PythonScriptStep(
     name = "Train Model",
     script_name = variables["TRAIN_SCRIPT_PATH"],
     compute_target = compute_target,
-    run_config = run_config
+    run_config = run_config,
+    inputs = [dataset]
 )
 
 pipeline = Pipeline(

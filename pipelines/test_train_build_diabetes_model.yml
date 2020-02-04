@@ -30,7 +30,7 @@ stages:
         workingDirectory: $(Build.SourcesDirectory)
         inlineScript: |
           docker build -f Dockerfile.test -t testing .
-          docker run testing python3 ${{AML_PIPELINE_PATH}}
+          docker run testing python3 $(AML_PIPELINE_PATH)
             
 
             

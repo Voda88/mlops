@@ -14,8 +14,13 @@ from azureml.core.authentication import ServicePrincipalAuthentication
 from azureml.pipeline.core import Pipeline
 from azureml.pipeline.steps import PythonScriptStep
 
+# Load yaml and store it as a dictionary
 with open("/pipelines/variables.yml", "r") as f:
-    variables = yaml.load(f)['variables']
+    yaml_loaded = yaml.safe_load(f)['variables']
+
+variables = {}
+for d in yaml_loaded:
+    variables[d['name']] = d['value']
 
 # Authenticate with AzureML
 #auth = ServicePrincipalAuthentication(

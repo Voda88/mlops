@@ -14,8 +14,6 @@ from azureml.core.authentication import ServicePrincipalAuthentication
 from azureml.pipeline.core import Pipeline
 from azureml.pipeline.steps import PythonScriptStep
 
-print(os.getcwd())
-
 with open("variables.yaml", "r") as f:
     conf = yaml.safe_load(f, Loader=yaml.FullLoader)
     variables = conf["variables"]

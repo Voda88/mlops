@@ -18,7 +18,7 @@ stages:
 - stage: 'Trigger_AML_Pipeline'
   displayName: 'Train model'
   jobs:
-  - job: 'Deploy AML pipeline'
+  - job: 'Deploy_AML_pipeline'
     displayName: "Deploy AML pipeline"
     container: mcr.microsoft.com/mlops/python:latest
     timeoutInMinutes: 0

@@ -31,7 +31,7 @@ for d in yaml_loaded:
 
 ws = Workspace.get(
     subscription_id=variables["SUBSCRIPTION_ID"],
-    resource_group = variables["RESOURCE_GROUP"]
+    resource_group = variables["RESOURCE_GROUP"],
     name = variables["BASE_NAME"]+"ws"
 )
 

@@ -42,7 +42,7 @@ try:
     compute_target = ComputeTarget(ws, variables["AML_COMPUTE_CLUSTER_CPU_SKU"])
     print('Found existing cluster, use it.')
 except ComputeTargetException:
-    compute_config = Amlcompute.provisioning_configuration(
+    compute_config = AmlCompute.provisioning_configuration(
     vm_size = variables['AML_COMPUTE_CLUSTER_SIZE'],
     vm_priority = variables['AML_CLUSTER_PRIORITY'],
     min_nodes = variables['AML_CLUSTER_MIN_NODES'],

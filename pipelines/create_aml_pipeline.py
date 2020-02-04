@@ -30,7 +30,7 @@ for d in yaml_loaded:
 #)
 
 ws = Workspace.get(
-    subscription_id=variables["AML"],
+    subscription_id=variables["AML_WORKSPACE_SERVICE_CONNECTION"],
     resource_group=variables["RESOURCE_GROUP"],
     workspace_name=variables["BASE_NAME"]+"ws"   
 )

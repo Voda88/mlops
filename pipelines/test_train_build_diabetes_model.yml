@@ -17,10 +17,10 @@ stages:
 
 - stage: 'Trigger_AML_Pipeline'
   displayName: 'Train model'
-  container: mcr.microsoft.com/mlops/python:latest
   jobs:
   - job: 'Deploy AML pipeline'
     displayName: "Deploy AML pipeline"
+    container: mcr.microsoft.com/mlops/python:latest
     timeoutInMinutes: 0
     steps:
     - task: AzureCLI@2

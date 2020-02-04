@@ -32,6 +32,11 @@ variables:
   - name: DATAFILE_PATH
     value: data/diabetes.csv
 
+    #pipelines
+  - name: AML_PIPELINE_PATH
+    value: pipelines/create_aml_pipeline.py
+  
+
     #Training
   - name: TRAIN_SCRIPT_PATH
     value: scripts/train_model.py

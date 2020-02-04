@@ -17,20 +17,19 @@ stages:
 
 - stage: 'Trigger_AML_Pipeline'
   displayName: 'Train model'
+  container: mcr.microsoft.com/mlops/python:latest
   jobs:
-  - job: 'Get_Pipeline_ID'
-    displayName: "Get Pipeline ID for execution"
+  - job: 'Deploy AML pipeline'
+    displayName: "Deploy AML pipeline"
     timeoutInMinutes: 0
     steps:
     - task: AzureCLI@2
       inputs:
         azureSubscription: $(AML_WORKSPACE_SERVICE_CONNECTION)
-        scriptType: bash
         scriptLocation: inlineScript
         workingDirectory: $(Build.SourcesDirectory)
         inlineScript: |
-          docker build -f Dockerfile.test -t testing .
-          docker run testing python3 $(AML_PIPELINE_PATH)
+          python3 $(AML_PIPELINE_PATH)
             
 
             

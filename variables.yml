@@ -28,7 +28,7 @@ variables:
   - name: DATASET_NAME
     value: diabetes
   - name: DATASTORE_NAME
-    value: diabetes_datastore
+    value: datablobstore
   - name: DATAFILE_PATH
     value: data/diabetes.csv
 

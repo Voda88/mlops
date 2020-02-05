@@ -3,6 +3,7 @@ import os
 
 from azureml.core import (
     Datastore,
+    Dataset,
     RunConfiguration,
     Experiment,
     Workspace,

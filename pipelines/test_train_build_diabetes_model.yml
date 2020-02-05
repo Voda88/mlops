@@ -23,11 +23,10 @@ stages:
     container: mcr.microsoft.com/mlops/python:latest
     timeoutInMinutes: 0
     steps:
-    - task: AzureCLI@2
+    - task: AzureCLI@1
       inputs:
         azureSubscription: $(AML_WORKSPACE_SERVICE_CONNECTION)
         scriptLocation: inlineScript
-        scriptType: bash
         workingDirectory: $(Build.SourcesDirectory)
         inlineScript: |
           python $(AML_PIPELINE_PATH)

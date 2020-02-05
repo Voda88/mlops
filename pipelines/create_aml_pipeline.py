@@ -61,7 +61,7 @@ run_config = RunConfiguration(
 # Pipeline definition
 dataset_name = variables["DATASET_NAME"]
 datastore = Datastore.get(ws, variables["DATASTORE_NAME"])
-data_path = [(datastore, variables["DATAFILE_PATH"])]
+data_path = [(datastore, variables["DATAFILE_NAME"])]
 dataset = Dataset.Tabular.from_delimited_files(path = data_path)
 dataset.register(workspace = ws,
                 name = dataset_name,

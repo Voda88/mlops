@@ -29,8 +29,8 @@ variables:
     value: diabetes
   - name: DATASTORE_NAME
     value: workspaceblobstore #Default Azure datastore name
-  - name: DATAFILE_PATH
-    value: data/diabetes.csv
+  - name: DATAFILE_NAME
+    value: diabetes.csv
 
     #pipelines
   - name: AML_PIPELINE_PATH

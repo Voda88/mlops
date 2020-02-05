@@ -30,7 +30,7 @@ stages:
         scriptType: bash
         workingDirectory: $(Build.SourcesDirectory)
         inlineScript: |
-          python3 $(AML_PIPELINE_PATH)
+          python $(AML_PIPELINE_PATH)
             
 
             

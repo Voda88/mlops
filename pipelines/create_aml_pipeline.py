@@ -52,11 +52,14 @@ except ComputeTargetException:
     )
     cpu_cluster = ComputeTarget.create(ws, variables["AML_COMPUTE_CLUSTER_CPU_SKU"], compute_config)
 
-run_config = RunConfiguration(
-    conda_dependencies= CondaDependencies(
-        conda_dependencies_file_path="./conda_dependencies.yml"
+run_config = RunConfiguration(conda_dependencies=CondaDependencies.create(
+        conda_packages=['numpy', 'pandas',
+                        'scikit-learn', 'tensorflow', 'keras'],
+        pip_packages=['azure', 'azureml-core',
+                      'azure-storage',
+                      'azure-storage-blob',
+                      'azureml-dataprep'])
     )
-)
 
 # Pipeline definition
 dataset_name = variables["DATASET_NAME"]

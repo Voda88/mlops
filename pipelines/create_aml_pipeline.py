@@ -55,16 +55,6 @@ for d in yaml_loaded:
     variables[d['name']] = d['value']
 
 
-<<<<<<< HEAD
-aml_workspace = Workspace.get(
-    subscription_id=variables["SUBSCRIPTION_ID"],
-    resource_group = variables["RESOURCE_GROUP"],
-    name = variables["BASE_NAME"]+"ws"
-)
-=======
->>>>>>> parent of bef7b02... Revert "Update create_aml_pipeline.py"
-
-
 # Usually, the  cluster already exists, so we just fetch
 try:
     compute_target = ComputeTarget(aml_workspace, variables["AML_COMPUTE_CLUSTER_CPU_SKU"])

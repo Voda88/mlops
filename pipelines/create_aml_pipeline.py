@@ -1,6 +1,7 @@
 import yaml
 import os
 import pandas as pd
+import argparse
 
 from azureml.core import (
     Datastore,
@@ -20,6 +21,25 @@ from azureml.pipeline.core import Pipeline, PipelineData
 from azureml.pipeline.steps import PythonScriptStep
 from sklearn.datasets import load_diabetes
 
+#Create parser to import connection parameters as arguments
+parser = argparse.ArgumentParser("aml_pipeline")
+parser.add_argument(
+    "--subscription_id",
+    type = str,
+    help = "ID of subscription where AML workspace is. Defined in DevOps variable group Connection_parameters SUBSCRIPTION_ID."
+)
+parser.add_argument(
+    "--resource_group",
+    type = str,
+    help = "Name of resource group where AML workspace is. Defined in DevOps variable group Connection_parameters RESOURCE_GROUP."
+)
+parser.add_argument(
+    "--base_name",
+    type = str,
+    help = "Base name of Azure resources. Defined in DevOps variable group Connection_parameters BASE_NAME."
+)
+args = parser.parse_args()
+
 # Load yaml and store it as a dictionary
 with open("variables.yml", "r") as f:
     yaml_loaded = yaml.safe_load(f)['variables']
@@ -35,9 +55,9 @@ for d in yaml_loaded:
 #)
 
 aml_workspace = Workspace.get(
-    subscription_id=variables["SUBSCRIPTION_ID"],
-    resource_group = variables["RESOURCE_GROUP"],
-    name = variables["BASE_NAME"]+"ws"
+    subscription_id=args.subscription_id,
+    resource_group = args.resource_group,
+    name = args.base_name+"ws"
 )
 
 

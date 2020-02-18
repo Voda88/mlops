@@ -80,12 +80,7 @@ def main():
 
     print("Getting training parameters")
 
-    with open("config.json") as f:
-        pars = json.load(f)
-    try:
-        alpha = pars["training"]["alpha"]
-    except KeyError:
-        alpha = 0.5
+    alpha = 0.5
 
     print("Parameter alpha: %s" % alpha)
 

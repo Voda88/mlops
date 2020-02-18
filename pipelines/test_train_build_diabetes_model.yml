@@ -9,6 +9,7 @@ trigger:
 
 variables:
 - template: /variables.yml
+- group: Connection_parameters
 
 pool:
   vmImage: ubuntu-latest

@@ -35,9 +35,9 @@ for d in yaml_loaded:
 #)
 
 aml_workspace = Workspace.get(
-    subscription_id=variables["SUBSCRIPTION_ID"],
-    resource_group = variables["RESOURCE_GROUP"],
-    name = variables["BASE_NAME"]+"ws"
+    subscription_id="d50ade7c-2587-4da8-9c63-fc828541722c",
+    resource_group = "rgp-learn-neu-mikkok",
+    name = "mikonmlops"+"ws"
 )
 
 

@@ -1,4 +1,17 @@
 variables:
+  - name: BASE_NAME
+    value: mikonmlops
+  - name: RESOURCE_GROUP
+    value: rgp-learn-neu-mikkok
+  - name: LOCATION_ID
+    value: northeurope
+  - name: SUBSCRIPTION_ID
+    value: d50ade7c-2587-4da8-9c63-fc828541722c
+  - name: AZURE_SERVICE_CONNECTION
+    value: AzureServiceConnection
+  - name: AML_WORKSPACE_SERVICE_CONNECTION
+    value: AMLWorkspaceServiceConnection
+
     #AML Cluster compute config
   - name: AML_COMPUTE_CLUSTER_CPU_SKU
     value: train-cluster

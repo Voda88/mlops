@@ -56,7 +56,6 @@ except ComputeTargetException:
     cpu_cluster = ComputeTarget.create(aml_workspace, variables["AML_COMPUTE_CLUSTER_CPU_SKU"], compute_config)
 
 run_config = RunConfiguration()
-run_config.environment = environment
 
 # Pipeline definition
 

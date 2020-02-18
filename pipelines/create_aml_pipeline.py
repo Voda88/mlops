@@ -133,6 +133,6 @@ pipeline = Pipeline(
 )
 
 if __name__ == "__main__":
-    Experiment(aml_workspace, "fit-component-defects-model").submit(pipeline).wait_for_completion(
+    Experiment(aml_workspace, "diabetes_model").submit(pipeline).wait_for_completion(
         show_output=True
     )

@@ -40,6 +40,13 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
+#Find workspace using connection parameters
+aml_workspace = Workspace.get(
+    subscription_id= 'd50ade7c-2587-4da8-9c63-fc828541722c',
+    resource_group = 'rpg-learn-neu-mikkok',
+    name = 'mikonmlops'+'ws'
+)
+
 # Load yaml and store it as a dictionary
 with open("variables.yml", "r") as f:
     yaml_loaded = yaml.safe_load(f)['variables']
@@ -48,17 +55,7 @@ variables = {}
 for d in yaml_loaded:
     variables[d['name']] = d['value']
 
-# Authenticate with AzureML
-#auth = ServicePrincipalAuthentication(
-    #tenant_id=variables["tenant_id"],
-    #service_principal_id=variables["service_principal_id"]
-#)
 
-aml_workspace = Workspace.get(
-    subscription_id=args.subscription_id,
-    resource_group = args.resource_group,
-    name = args.base_name+"ws"
-)
 
 
 # Usually, the  cluster already exists, so we just fetch

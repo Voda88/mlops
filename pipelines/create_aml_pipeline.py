@@ -109,7 +109,7 @@ dataset = Dataset.get_by_name(aml_workspace, dataset_name)
 #Create a PipelineData to pass data between steps
 pipeline_data = PipelineData(
     'pipeline_data',
-    datastore = aml_workspace.get_default_datastore())
+    datastore = aml_workspace.get_default_datastore()
 )
 
 

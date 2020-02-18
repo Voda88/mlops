@@ -16,6 +16,7 @@ from azureml.core.conda_dependencies import CondaDependencies
 from azureml.core.authentication import ServicePrincipalAuthentication
 from azureml.pipeline.core import Pipeline
 from azureml.pipeline.steps import PythonScriptStep
+from sklearn.datasets import load_diabetes
 
 # Load yaml and store it as a dictionary
 with open("variables.yml", "r") as f:
@@ -31,7 +32,7 @@ for d in yaml_loaded:
     #service_principal_id=variables["service_principal_id"]
 #)
 
-ws = Workspace.get(
+aml_workspace = Workspace.get(
     subscription_id=variables["SUBSCRIPTION_ID"],
     resource_group = variables["RESOURCE_GROUP"],
     name = variables["BASE_NAME"]+"ws"
@@ -40,7 +41,7 @@ ws = Workspace.get(
 
 # Usually, the  cluster already exists, so we just fetch
 try:
-    compute_target = ComputeTarget(ws, variables["AML_COMPUTE_CLUSTER_CPU_SKU"])
+    compute_target = ComputeTarget(aml_workspace, variables["AML_COMPUTE_CLUSTER_CPU_SKU"])
     print('Found existing cluster, use it.')
 except ComputeTargetException:
     compute_config = AmlCompute.provisioning_configuration(
@@ -50,7 +51,7 @@ except ComputeTargetException:
     max_nodes = variables['AML_CLUSTER_MAX_NODES'],
     idle_seconds_before_scaledown = "300"
     )
-    cpu_cluster = ComputeTarget.create(ws, variables["AML_COMPUTE_CLUSTER_CPU_SKU"], compute_config)
+    cpu_cluster = ComputeTarget.create(aml_workspace, variables["AML_COMPUTE_CLUSTER_CPU_SKU"], compute_config)
 
 run_config = RunConfiguration(conda_dependencies=CondaDependencies.create(
         conda_packages=['numpy', 'pandas',
@@ -62,30 +63,56 @@ run_config = RunConfiguration(conda_dependencies=CondaDependencies.create(
     )
 
 # Pipeline definition
+
+#Dataset creation
 dataset_name = variables["DATASET_NAME"]
-datastore = Datastore.get(ws, variables["DATASTORE_NAME"])
-data_path = [(datastore, variables["DATAFILE_NAME"])]
-dataset = Dataset.Tabular.from_delimited_files(path = data_path)
-dataset.register(workspace = ws,
-                name = dataset_name,
-                description = "dataset with training data",
-                create_new_version = True)
+
+#Check to see if dataset exists
+if (dataset_name not in aml_workspace.datasets):
+    #Create dataset from diabetes sample data
+    sample_data = load_diabetes()
+    df = pd.DataFrame(
+        data = sample_data.data,
+        columns = sample_data.features_names)
+    df['Y'] = sample_data.target
+    file_name = 'diabetes.csv'
+    df.to_csv(file_name, index = False)
+
+    #Upload file to default datastore in workspace
+
+    default_ds = aml_workspace.get_default_datastore()
+    target_path = 'training-data/'
+    default_ds.upload_files(
+        files = [file_name],
+        target_path = target_path,
+        overwrite = True,
+        show_progress = False
+    )
+
+    # Register dataset
+
+    path_on_datastore = os.path.join(target_path, file_name)
+    dataset = Dataset.Tabular.from_delimited_files(
+        path = (default_ds, pat_on_datastore))
+    dataset = dataset.register(
+        workspace = aml_workspace
+    )
 
 train_model = PythonScriptStep(
     name = "Train Model",
     script_name = variables["TRAIN_SCRIPT_PATH"],
     compute_target = compute_target,
     run_config = run_config,
-    inputs = [dataset]
+    inputs = [dataset.as_named_input('training data')]
 )
 
 pipeline = Pipeline(
-    workspace=ws,
+    workspace=aml_workspace,
     steps=[train_model],
     description="Builds sci_kit_learn model for diabetes",
 )
 
 if __name__ == "__main__":
-    Experiment(ws, "fit-component-defects-model").submit(pipeline).wait_for_completion(
+    Experiment(aml_workspace, "fit-component-defects-model").submit(pipeline).wait_for_completion(
         show_output=True
     )

@@ -44,7 +44,7 @@ args = parser.parse_args()
 aml_workspace = Workspace.get(
     subscription_id= 'd50ade7c-2587-4da8-9c63-fc828541722c',
     resource_group = 'rpg-learn-neu-mikkok',
-    name = 'mikonmlopsws'
+    name = 'mikonmlops'+'ws'
 )
 
 # Load yaml and store it as a dictionary

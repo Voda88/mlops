@@ -93,17 +93,37 @@ if (dataset_name not in aml_workspace.datasets):
 
     path_on_datastore = os.path.join(target_path, file_name)
     dataset = Dataset.Tabular.from_delimited_files(
-        path = (default_ds, pat_on_datastore))
+        path = (default_ds, path_on_datastore))
     dataset = dataset.register(
-        workspace = aml_workspace
+        workspace = aml_workspace,
+        name = dataset_name,
+        description = 'diabetes training data',
+        tags = {'format': 'CSV'},
+        create_new_version = True
     )
+
+#Get the dataset
+dataset = Dataset.get_by_name(aml_workspace, dataset_name)
+
+
+#Create a PipelineData to pass data between steps
+pipeline_data = PipelineData(
+    'pipeline_data',
+    datastore = aml_workspace.get_default_datastore())
+)
+
 
 train_model = PythonScriptStep(
     name = "Train Model",
     script_name = variables["TRAIN_SCRIPT_PATH"],
     compute_target = compute_target,
     run_config = run_config,
-    inputs = [dataset.as_named_input('training data')]
+    inputs = [dataset.as_named_input('training data')],
+    outputs = [pipeline_data],
+    allow_reuse = False,
+    arguments = [
+        "--step_output", pipeline_data
+    ]
 )
 
 pipeline = Pipeline(

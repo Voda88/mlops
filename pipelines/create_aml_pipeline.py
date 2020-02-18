@@ -74,7 +74,7 @@ if (dataset_name not in aml_workspace.datasets):
     sample_data = load_diabetes()
     df = pd.DataFrame(
         data = sample_data.data,
-        columns = sample_data.features_names)
+        columns = sample_data.feature_names)
     df['Y'] = sample_data.target
     file_name = 'diabetes.csv'
     df.to_csv(file_name, index = False)

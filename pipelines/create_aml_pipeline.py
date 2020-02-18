@@ -20,8 +20,6 @@ from azureml.pipeline.core import Pipeline, PipelineData
 from azureml.pipeline.steps import PythonScriptStep
 from sklearn.datasets import load_diabetes
 
-<<<<<<< HEAD
-=======
 #Create parser to import connection parameters as arguments
 parser = argparse.ArgumentParser("aml_pipeline")
 parser.add_argument(
@@ -43,12 +41,11 @@ args = parser.parse_args()
 
 #Find workspace using connection parameters
 aml_workspace = Workspace.get(
-    subscription_id= 'd50ade7c-2587-4da8-9c63-fc828541722c',
-    resource_group = 'rpg-learn-neu-mikkok',
-    name = 'mikonmlops'+'ws'
+    subscription_id= args.subscription_id,
+    resource_group = args.resource_group,
+    name = args.base_name+"ws"
 )
 
->>>>>>> parent of bef7b02... Revert "Update create_aml_pipeline.py"
 # Load yaml and store it as a dictionary
 with open("variables.yml", "r") as f:
     yaml_loaded = yaml.safe_load(f)['variables']

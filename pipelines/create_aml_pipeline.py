@@ -15,7 +15,7 @@ from azureml.exceptions import ComputeTargetException
 from azureml.core.compute import AmlCompute
 from azureml.core.conda_dependencies import CondaDependencies
 from azureml.core.authentication import ServicePrincipalAuthentication
-from azureml.pipeline.core import Pipeline
+from azureml.pipeline.core import Pipeline, PipelineData
 from azureml.pipeline.steps import PythonScriptStep
 from sklearn.datasets import load_diabetes
 

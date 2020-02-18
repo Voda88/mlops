@@ -18,6 +18,7 @@ pool:
 
 variables:
   - template: /variables.yaml
+  - group: Connection_parameters
 
 steps:
   - task: AzureResourceGroupDeployment@2

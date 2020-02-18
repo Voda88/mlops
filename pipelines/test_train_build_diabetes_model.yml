@@ -30,7 +30,7 @@ stages:
         scriptLocation: inlineScript
         workingDirectory: $(Build.SourcesDirectory)
         inlineScript: |
-          python $(AML_PIPELINE_PATH)
+          python $(AML_PIPELINE_PATH) --subscription_id $(SUBSCRIPTION_ID) --resource_group $(RESOURCE_GROUP) --base_name $(BASE_NAME)
             
 
             

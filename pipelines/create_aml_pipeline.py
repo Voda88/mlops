@@ -1,5 +1,6 @@
 import yaml
 import os
+import pandas as pd
 
 from azureml.core import (
     Datastore,

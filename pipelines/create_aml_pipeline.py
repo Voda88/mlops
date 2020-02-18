@@ -55,7 +55,12 @@ except ComputeTargetException:
     )
     cpu_cluster = ComputeTarget.create(aml_workspace, variables["AML_COMPUTE_CLUSTER_CPU_SKU"], compute_config)
 
+#create environment from conda_dependencies.yml for runconfig
+environment = Environment(name="myenv")
+conda_dep = CondaDependencies(conda_dependencies_file_path = "conda_dependencies.yml")
+environment.python.conda_dependencies = conda_dep
 run_config = RunConfiguration()
+run_config.environment = environment
 
 # Pipeline definition
 

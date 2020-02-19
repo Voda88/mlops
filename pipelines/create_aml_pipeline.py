@@ -56,7 +56,7 @@ for d in yaml_loaded:
     variables[d['name']] = d['value']
 
 
-# Usually, the  cluster already exists, so we just fetch
+# Check if compute cluster exists. If not, create one.
 try:
     compute_target = ComputeTarget(aml_workspace, variables["AML_COMPUTE_CLUSTER_CPU_SKU"])
     print('Found existing cluster, use it.')

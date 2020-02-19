@@ -77,8 +77,6 @@ environment.python.conda_dependencies = conda_dep
 run_config = RunConfiguration()
 run_config.environment = environment
 
-# Pipeline definition
-
 #Dataset creation
 dataset_name = variables["DATASET_NAME"]
 
@@ -128,6 +126,7 @@ pipeline_data = PipelineData(
 )
 
 
+#Configure step for training model
 train_model = PythonScriptStep(
     name = "Train Model",
     script_name = variables["TRAIN_SCRIPT_PATH"],
@@ -141,6 +140,10 @@ train_model = PythonScriptStep(
     ]
 )
 
+#Configure step for evaluating model
+
+
+#Configure pipeline
 pipeline = Pipeline(
     workspace=aml_workspace,
     steps=[train_model],
